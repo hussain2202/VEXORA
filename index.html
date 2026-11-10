@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VEXORA </title>
+    <link rel="stylesheet" href="style.css">
+    <!-- مكتبة أيقونات السوشيال ميديا -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <!-- الهيدر المُعدل: اللوجو بجانبه الاسم والشعار تماماً زي صورتك -->
+    <header class="main-header">
+        <div class="logo-container" style="display: flex; align-items: center; gap: 12px; flex-direction: row-reverse;">
+            <div style="display: flex; flex-direction: column; text-align: right;">
+                <h1 class="brand-logo" style="font-size: 1.5rem; margin: 0; line-height: 1.1;">VEXORA</h1>
+                <span class="brand-tagline" style="font-size: 0.6rem; color: var(--primary-accent); letter-spacing: 0.5px;">YOUR POWER STARTS HERE</span>
+            </div>
+            <img src="L.jpeg" alt="VEXORA Logo" class="site-logo-img" onerror="this.style.display='none'">
+        </div>
+        
+        <nav class="main-nav">
+            <a href="#" onclick="showSection('home')">الرئيسية</a>
+            <a href="#shop-section" onclick="filterCategory('gpu', event)">كروت الشاشة</a>
+            <a href="#shop-section" onclick="filterCategory('cpu', event)">المعالجات</a>
+            <a href="#shop-section" onclick="filterCategory('laptop', event)">لابتوبات</a>
+            <a href="#shop-section" onclick="filterCategory('apple', event)">أجهزة أبل</a>
+            <a href="#shop-section" onclick="filterCategory('monitor', event)">الشاشات</a>
+            <a href="#shop-section" onclick="filterCategory('headset', event)">سماعات</a>
+            <a href="#shop-section" onclick="filterCategory('keyboard', event)">كيبورد</a>
+            <a href="#shop-section" onclick="filterCategory('mouse', event)">ماوس</a>
+        </nav>
+
+        <div class="header-actions">
+            <button class="btn-secondary" onclick="toggleLanguage()">
+                🌐 <span id="lang-text">EN</span>
+            </button>
+            <button class="cart-btn" onclick="openCartPage()">
+                🛒 <span class="cart-count">0</span>
+            </button>
+            <button class="whatsapp-btn" onclick="openWhatsApp()">
+                💬 واتساب
+            </button>
+            
+            <!-- زر تسجيل الدخول بجانب عربة التسوق -->
+            <div id="auth-header-slot">
+                <button class="btn-secondary login-header-btn" onclick="openAuthModal('login')" id="nav-login-btn">
+                    🔑 تسجيل الدخول
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- قسم الرئيسية (Hero) بخلفية H.jpeg -->
+    <section id="home-section" class="hero-section" style="background: linear-gradient(rgba(11,15,23,0.6), rgba(11,15,23,0.8)), url('H.jpeg') no-repeat center center/cover;">
+        <div class="hero-content">
+            <div class="hero-badge">⚡YOUR POWER STARTS HERE </div>
+            <h1 class="hero-main-title">VEXORA </h1>
+وجهتك الأولى لعالم التكنولوجيا والأداء الفائق
+اكتشف أقوى كروت الشاشة، والمعالجات، ولابتوبات الجيمينج، وأحدث أجهزة Apple، ومكونات الكمبيوتر الاحترافية.
+أداء استثنائي • جودة مضمونة • ثقة تستحقها</p>
+            <button class="add-to-cart-btn" onclick="scrollToShop()">تصفح المنتجات الآن</button>
+        </div>
+    </section>
+
+    <!-- قسم المتجر والمنتجات -->
+    <section id="shop-section" class="shop-container">
+        <h2 class="section-title">قائمة المنتجات </h2>
+
+        <div class="search-bar-wrapper">
+            <input type="text" id="search-input" placeholder="ابحث باسم المنتج أو الـ ID (مثل: RTX 4090, 15...)" oninput="handleSearch()">
+        </div>
+        <div class="filter-tabs-container">
+    <button class="filter-tab active" onclick="filterCategory('all', event)">الكل (All)</button>
+    <button class="filter-tab" onclick="filterCategory('gpu', event)">كروت الشاشة</button>
+    <button class="filter-tab" onclick="filterCategory('cpu', event)">المعالجات</button>
+    <button class="filter-tab" onclick="filterCategory('laptop', event)">لابتوب جيمنج</button>
+    <button class="filter-tab" onclick="filterCategory('apple', event)">أجهزة أبل</button>
+    <button class="filter-tab" onclick="filterCategory('monitor', event)">الشاشات</button>
+    <button class="filter-tab" onclick="filterCategory('motherboard', event)">اللوحات الأم (Motherboard)</button>
+    <button class="filter-tab" onclick="filterCategory('headset', event)">السماعات</button>
+    <button class="filter-tab" onclick="filterCategory('keyboard', event)">الكيبورد</button>
+    <button class="filter-tab" onclick="filterCategory('mouse', event)">الماوس</button>
+    <button class="filter-tab" onclick="filterCategory('ram', event)">الرامات</button>
+    <button class="filter-tab" onclick="filterCategory('storage', event)">التخزين SSD</button>
+    <button class="filter-tab" onclick="filterCategory('cooler', event)">التبريد</button>
+    <button class="filter-tab" onclick="filterCategory('case', event)">الكيسات (Cases)</button>
+</div>
+
+
+        <div id="product-container" class="products-grid"></div>
+    </section>
+
+    <!-- صفحة سلة التسوق -->
+    <div id="cart-page" style="display: none; padding: 40px 20px; max-width: 900px; margin: auto;">
+        <h2 style="color:var(--primary-accent); margin-bottom:20px;">🛒 سلة التسوق الخاصة بك</h2>
+        <div id="cart-items-container"></div>
+        <div class="cart-summary-box" style="margin-top:20px; padding:20px; background:#121824; border-radius:10px;">
+            <p><strong>إجمالي القطع:</strong> <span id="cart-total-items">0</span></p>
+            <p><strong>الإجمالي:</strong> <span id="cart-total-price">0 ج.م</span></p>
+            <button class="add-to-cart-btn" onclick="openCheckoutModal()" style="margin-top:15px; width:100%;">اشتري الآن 🚀</button>
+            <button class="btn-secondary" onclick="showSection('shop')" style="margin-top:10px; width:100%;">متابعة التسوق</button>
+        </div>
+    </div>
+
+    <!-- نافذة إتمام الطلب (Checkout Modal) -->
+    <div id="checkout-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 450px; text-align: right;" dir="rtl">
+            <span class="close-modal" onclick="closeCheckoutModal()" style="float: left; cursor: pointer; font-size: 24px;">&times;</span>
+            <h3 style="margin-bottom: 15px; color: var(--primary-accent);">أدخل بيانات الشحن وطريقة الدفع</h3>
+            
+            <form onsubmit="confirmOrder(event)">
+                <div class="auth-form-group"><label>الاسم بالكامل</label><input type="text" id="cust-name" required placeholder="أدخل اسمك الثلاثي"></div>
+                <div class="auth-form-group"><label>البريد الإلكتروني</label><input type="email" id="cust-email" required placeholder="example@gmail.com"></div>
+                <div class="auth-form-group"><label>العنوان بالتفصيل</label><input type="text" id="cust-address" required placeholder="المحافظة، المدينة، الشارع..."></div>
+                <div class="auth-form-group"><label>رقم الموبايل الأساسي</label><input type="tel" id="cust-phone1" required placeholder="01xxxxxxxxx"></div>
+                <div class="auth-form-group"><label>رقم موبايل إضافي (احتياطي)</label><input type="tel" id="cust-phone2" placeholder="01xxxxxxxxx"></div>
+                <div style="margin: 15px 0;">
+                    <label style="display:block; margin-bottom:8px; color:#aaa;">اختر طريقة الدفع:</label>
+                    <label style="margin-left: 15px;"><input type="radio" name="payment" value="الدفع عند الاستلام" checked> الدفع عند الاستلام</label>
+                    <label><input type="radio" name="payment" value="فودافون كاش"> فودافون كاش</label>
+                </div>
+                <button type="submit" class="add-to-cart-btn" style="width:100%; padding:12px;">تأكيد وإتمام الطلب 🚀</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة تفاصيل المنتج -->
+    <div id="product-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeProductModal()">&times;</span>
+            <div class="modal-body-grid">
+                <img id="modal-img" src="" alt="Product" class="modal-product-img">
+                <div class="modal-info">
+                    <span id="modal-cat" class="product-category-tag"></span>
+                    <h2 id="modal-title" style="margin: 10px 0;"></h2>
+                    <p id="modal-desc" style="color: #bbb; font-size: 0.95rem; line-height: 1.6;"></p>
+                    <h3 id="modal-price" style="color: var(--primary-accent); margin: 15px 0;"></h3>
+                    <h4 style="margin-bottom: 5px;">المواصفات والتقييم:</h4>
+                    <ul id="modal-specs-list" style="padding-right: 20px; color: #ccc; font-size: 0.9rem;"></ul>
+                    <button class="add-to-cart-btn" onclick="addCurrentToCart()" style="margin-top: 20px; width: 100%;">أضف إلى السلة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تسجيل الدخول بنمط Pinterest -->
+    <div class="modal-overlay" id="auth-modal-overlay">
+        <div class="auth-card">
+            <button class="close-btn" onclick="closeAuthModal()">&times;</button>
+            
+            <div id="view-login">
+                <h3>Welcome to VEXORA</h3>
+                <p style="text-align:center; color:#888; font-size:0.85rem; margin-bottom:20px;">Log in to discover more items</p>
+                <form onsubmit="handleLoginSubmit(event)">
+                    <div class="auth-form-group"><input type="text" id="login-username" required placeholder="Email or Username"></div>
+                    <div class="auth-form-group"><input type="password" id="login-password" required placeholder="Password"></div>
+                    <a class="forgot-link" onclick="switchAuthView('forgot-email')">Forgot your password?</a>
+                    <button type="submit" class="auth-submit-main-btn">Log in</button>
+                </form>
+                <div style="text-align:center; margin: 10px 0; color:#777; font-size:0.85rem;">OR</div>
+                <button class="google-login-btn" onclick="openGoogleAccountsModal()">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google">
+                    Continue with Google
+                </button>
+                <div class="switch-auth-mode" style="margin-top:20px;">Not on VEXORA yet? <span onclick="switchAuthView('signup')">Sign up</span></div>
+            </div>
+
+            <div id="view-signup" style="display: none;">
+                <h3>Create account</h3>
+                <form onsubmit="handleSignUpSubmit(event)">
+                    <div class="auth-form-group"><input type="text" id="signup-fullname" required placeholder="Full Name"></div>
+                    <div class="auth-form-group"><input type="text" id="signup-username" required placeholder="Username"></div>
+                    <div class="auth-form-group"><input type="text" id="signup-email" required placeholder="Email or Phone number"></div>
+                    <div class="auth-form-group"><input type="text" id="signup-address" placeholder="Detailed Address"></div>
+                    <div class="auth-form-group"><input type="password" id="signup-password" required placeholder="Create a password"></div>
+                    <button type="submit" class="auth-submit-main-btn">Sign Up</button>
+                </form>
+                <div class="switch-auth-mode">Already a member? <span onclick="switchAuthView('login')">Log in</span></div>
+            </div>
+
+            <div id="view-forgot-email" style="display: none;">
+                <h3>Reset password</h3>
+                <p style="font-size:0.85rem; color:#aaa; margin-bottom: 15px;">Enter your email to receive verification code.</p>
+                <form onsubmit="handleSendCodeSubmit(event)">
+                    <div class="auth-form-group"><input type="email" id="reset-email" required placeholder="Email address"></div>
+                    <button type="submit" class="auth-submit-main-btn">Send Code</button>
+                </form>
+                <div class="switch-auth-mode"><span onclick="switchAuthView('login')">Back to Login</span></div>
+            </div>
+
+            <div id="view-forgot-code" style="display: none;">
+                <h3>Enter Code</h3>
+                <p style="font-size:0.85rem; color:#aaa; margin-bottom: 15px;">Enter 4-digit code (Test: 1234).</p>
+                <form onsubmit="handleVerifyCodeSubmit(event)">
+                    <div class="auth-form-group"><input type="text" id="reset-code" maxlength="4" required placeholder="1234" style="text-align: center; font-size: 1.2rem; letter-spacing: 5px;"></div>
+                    <button type="submit" class="auth-submit-main-btn">Verify Code</button>
+                </form>
+            </div>
+
+            <div id="view-reset-pass" style="display: none;">
+                <h3>New Password</h3>
+                <form onsubmit="handleNewPasswordSubmit(event)">
+                    <div class="auth-form-group"><input type="password" id="new-password" required placeholder="New password"></div>
+                    <div class="auth-form-group"><input type="password" id="confirm-new-password" required placeholder="Confirm password"></div>
+                    <button type="submit" class="auth-submit-main-btn">Save Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة اختيار حسابات جوجل -->
+    <div class="google-accounts-overlay" id="google-accounts-modal">
+        <div class="google-accounts-card">
+            <div class="google-modal-header">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="24" alt="G">
+                <div><h4>Sign in with Google</h4><p>to continue to VEXORA</p></div>
+            </div>
+            <div class="google-accounts-list">
+                <div class="google-account-item" onclick="selectGoogleAccount('ana3mk7oka@gmail.com')">
+                    <div class="g-avatar">A</div>
+                    <div class="g-info"><strong>ana3mk7oka@gmail.com</strong><span>Signed out</span></div>
+                </div>
+                <div class="google-account-item" onclick="selectGoogleAccount('vexora.gamer@gmail.com')">
+                    <div class="g-avatar" style="background:#7000ff;">V</div>
+                    <div class="g-info"><strong>vexora.gamer@gmail.com</strong><span>Personal</span></div>
+                </div>
+            </div>
+            <div class="google-modal-footer"><span onclick="closeGoogleAccountsModal()">Cancel</span></div>
+        </div>
+    </div>
+    <!-- قسم آراء وتقييمات العملاء (Feedback Section) -->
+<section class="reviews-section" style="padding: 40px 20px; background: rgba(255,255,255,0.02); border-radius: 12px; margin: 50px auto 20px; max-width: 1200px; border: 1px solid rgba(255,255,255,0.05);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+        <h2 style="font-size: 1.5rem; margin: 0;">آراء العملاء وتقييمات المتجر ⭐</h2>
+        <button class="btn-primary" onclick="openFeedbackModal()" style="padding: 10px 20px; font-weight: bold; border-radius: 8px;">➕ أضف تقييمك</button>
+    </div>
+    <div id="reviews-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <!-- التقييمات تظهر هنا ديناميكياً -->
+    </div>
+</section>
+
+<!-- Modal إضافة تقييم -->
+<div id="feedback-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 480px; width: 90%; padding: 25px;">
+        <span class="close-modal-btn" onclick="closeFeedbackModal()">&times;</span>
+        <h3 style="margin-bottom: 20px; color: var(--primary-accent, #00f0ff);">شاركنا رأيك في VEXORA ✨</h3>
+        <form onsubmit="handleFeedbackSubmit(event)">
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; margin-bottom:5px; text-align: right;">الاسم:</label>
+                <input type="text" id="fb-name" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:#111; color:#fff;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; margin-bottom:5px; text-align: right;">التقييم:</label>
+                <select id="fb-rating" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:#111; color:#fff;">
+                    <option value="5">⭐⭐⭐⭐⭐ (5/5) ممتاز جداً</option>
+                    <option value="4">⭐⭐⭐⭐ (4/5) جيد جداً</option>
+                    <option value="3">⭐⭐⭐ (3/5) جيد</option>
+                    <option value="2">⭐⭐ (2/5) مقبول</option>
+                    <option value="1">⭐ (1/5) ضعيف</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom:5px; text-align: right;">تعليقك أو تجربتك:</label>
+                <textarea id="fb-comment" rows="4" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:#111; color:#fff;"></textarea>
+            </div>
+            <div style="display:flex; gap:10px; justify-content:flex-end;">
+                <button type="button" onclick="closeFeedbackModal()" class="btn-secondary">إلغاء</button>
+                <button type="submit" class="btn-primary">نشر التقييم</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <!-- الفوتر الأصلي الكامل مع أيقونات التواصل الاجتماعي -->
+    <footer class="main-footer" style="background: #080b10; border-top: 1px solid var(--border-color); padding: 50px 20px 20px 20px; margin-top: 60px; color: #aaa;">
+        <div style="max-width: 1200px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 30px; text-align: right;">
+            
+            <div>
+                <h3 style="color: var(--primary-accent); margin-bottom: 15px; font-size: 1.4rem;">VEXORA</h3>
+                <p style="font-size: 0.9rem; line-height: 1.7; color: #888;">
+                    VEXORA 
+وجهتك الأولى لعالم التكنولوجيا والأداء الفائق
+اكتشف أقوى كروت الشاشة، والمعالجات، ولابتوبات الجيمينج، وأحدث أجهزة Apple، ومكونات الكمبيوتر الاحترافية.
+أداء استثنائي • جودة مضمونة • ثقة تستحقها
+                </p>
+            </div>
+
+            <div>
+                <h4 style="color: #fff; margin-bottom: 15px; font-size: 1.1rem;">روابط سريعة</h4>
+                <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 2.2;">
+                    <li><a href="#" onclick="showSection('home')" style="color: #888; text-decoration: none;">الرئيسية</a></li>
+                    <li><a href="#shop-section" onclick="filterCategory('gpu', event)" style="color: #888; text-decoration: none;">كروت الشاشة</a></li>
+                    <li><a href="#shop-section" onclick="filterCategory('cpu', event)" style="color: #888; text-decoration: none;">المعالجات</a></li>
+                    <li><a href="#shop-section" onclick="filterCategory('laptop', event)" style="color: #888; text-decoration: none;">لابتوبات الجيمنج</a></li>
+                    <li><a href="#shop-section" onclick="filterCategory('apple', event)" style="color: #888; text-decoration: none;">أجهزة أبل</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 style="color: #fff; margin-bottom: 15px; font-size: 1.1rem;">اتصل بينا</h4>
+                <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 2.2; color: #888;">
+                    <li>📍 <strong>العنوان:</strong> سوهاج، مصر</li>
+                    <li>✉️ <strong>البريد:</strong> 2hussa2021@gmail.com</li>
+                    <li>⏰ <strong>مواعيد العمل:</strong> يومياً من 10 صباحاً حتى 10 مساءً</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 style="color: #fff; margin-bottom: 15px; font-size: 1.1rem;">تواصل معنا</h4>
+                <p style="font-size: 0.85rem; color: #888; margin-bottom: 15px;">تابعنا على منصاتنا الرسمية:</p>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <a href="https://www.facebook.com/share/1J98jhivx6/" target="_blank" style="background: rgba(24,119,242,0.15); border: 1px solid #1877f2; color: #1877f2; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; text-decoration: none;">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/hussain_20_266" target="_blank" style="background: rgba(225,48,108,0.15); border: 1px solid #e1306c; color: #e1306c; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; text-decoration: none;">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://tiktok.com/@3ashik_1" target="_blank" style="background: rgba(255,255,255,0.1); border: 1px solid #fff; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; text-decoration: none;">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="https://wa.me/201100984141" target="_blank" style="background: rgba(37,211,102,0.15); border: 1px solid #25d366; color: #25d366; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; text-decoration: none;">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="border-top: 1px solid #1a2332; margin-top: 40px; padding-top: 20px; text-align: center; font-size: 0.85rem; color: #666;">
+            جميع الحقوق محفوظة &copy; 2026 <strong>VEXORA TECH</strong> - YOUR POWER STARTS HERE
+        </div>
+    </footer>
+
+    <div id="toast-notification" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>
