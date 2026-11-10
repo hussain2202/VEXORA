@@ -1,0 +1,630 @@
+:root {
+    --bg-color: #0b0f17;
+    --card-bg: #121824;
+    --text-color: #ffffff;
+    --primary-accent: #00f0ff;
+    --secondary-accent: #7000ff;
+    --danger-color: #e60023;
+    --border-color: #1e293b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* منع ظهور أي صفين وعمل تدرج ذكي لإخفاء الأقسام أول ما الشاشة تصغر (سواء لابتوب أو موبايل) */
+@media (max-width: 1024px) {
+    /* إخفاء القوائم والأقسام الزائدة فوراً قبل ما تضطر تعمل صفين */
+    .nav-links, .categories-nav, header div[style*="flex"] > div:nth-child(2) {
+        display: none !important;
+    }
+
+    /* الحفاظ على الهيدر في سطر واحد نظيف ومرتب تماماً */
+    header, .main-header {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+}
+
+/* تصغير الناف بار وكل محتوياته تلقائياً مع انكماش الشاشة (سواء لابتوب أو موبايل) */
+@media (max-width: 1200px) {
+    header, .main-header {
+        flex-wrap: nowrap !important;
+        overflow: hidden !important;
+    }
+    
+    /* جعل أزرار وlinks الناف بار تصغر تدريجياً في الحجم والخط بدلاً من الثبات */
+    .nav-links a, .categories-nav a, header div[style*="flex"] a {
+        font-size: clamp(0.7rem, 1.2vw, 0.9rem) !important;
+        padding: 4px 8px !important;
+        white-space: nowrap !important;
+    }
+}
+
+/* إجبار الهيدر والناف بار على الانكماش والتناسب مع أي شاشة صغيرة */
+header, .main-header {
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* تصغير كل الروابط والأزرار الموجودة داخل شريط التنقل بالتدريج */
+header a, header span, .nav-links a, .categories-nav a {
+    font-size: 11px !important;
+    padding: 3px 6px !important;
+    white-space: nowrap !important;
+    letter-spacing: -0.5px;
+}
+
+/* لو الشاشة ضاقت أوي، نخفي الأقسام الزائدة فوراً عشان متاحفش شكل الموقع */
+@media (max-width: 1100px) {
+    header div[style*="flex"] > div:not(:first-child) {
+        display: none !important;
+    }
+}
+
+body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(11, 15, 23, 0.95);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.site-logo-img {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.site-logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-accent);
+    color: var(--primary-accent);
+}
+
+.login-header-btn {
+    background: rgba(0, 240, 255, 0.1);
+    border-color: var(--primary-accent);
+    color: var(--primary-accent);
+}
+
+.whatsapp-btn {
+    background: #25d366;
+    border: none;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cart-btn {
+    background: var(--secondary-accent);
+    border: none;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero-section {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-content {
+    max-width: 750px;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid var(--primary-accent);
+    color: var(--primary-accent);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+
+.hero-main-title {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+}
+
+.hero-sub-desc {
+    font-size: 1.05rem;
+    color: #aaa;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.shop-container {
+    max-width: 1300px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.search-bar-wrapper {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar-wrapper input {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: #fff;
+    outline: none;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+.search-bar-wrapper input:focus {
+    border-color: var(--primary-accent);
+}
+
+.categories-tabs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+.filter-tab {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: #ccc;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.filter-tab.active, .filter-tab:hover {
+    background: var(--primary-accent);
+    color: #000;
+    border-color: var(--primary-accent);
+    font-weight: bold;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-accent);
+}
+
+.product-img-wrapper {
+    width: 100%;
+    height: 160px;
+    background: #1a2332;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+#product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    width: 100%;
+    padding: 10px;
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-category-tag {
+    font-size: 0.75rem;
+    color: var(--primary-accent);
+    background: rgba(0, 240, 255, 0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
+    width: fit-content;
+    margin-bottom: 8px;
+}
+
+.product-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.small-id {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.product-desc-short {
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.product-price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary-accent);
+    margin-bottom: 12px;
+}
+
+.add-to-cart-btn {
+    background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+    border: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.add-to-cart-btn:hover {
+    opacity: 0.9;
+}
+
+/* نافذة تفاصيل المنتج: مكبرة ومسنترة في منتصف الشاشة تماماً */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--primary-accent);
+    border-radius: 20px;
+    padding: 40px;
+    width: 95%;
+    max-width: 1100px; /* تم تكبير عرض النافذة لتسع التفاصيل الإضافية */
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0, 240, 255, 0.3);
+    margin: auto;
+}
+
+.modal-body-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.modal-product-img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    opacity: 0; pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1; pointer-events: all;
+}
+
+.auth-card {
+    background: #121824;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    border-radius: 24px;
+    width: 90%; max-width: 420px;
+    padding: 40px 30px;
+    position: relative;
+    color: #fff; text-align: center;
+}
+
+.auth-card .close-btn {
+    position: absolute; top: 20px; left: 20px;
+    background: rgba(255,255,255,0.05); border: none; color: #fff;
+    width: 36px; height: 36px; border-radius: 50%;
+    font-size: 20px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.auth-card h3 { margin-bottom: 8px; color: #fff; font-size: 1.6rem; font-weight: 700; }
+
+.auth-form-group { margin-bottom: 15px; text-align: right; }
+
+.auth-form-group input {
+    width: 100%; padding: 14px 16px;
+    background: #1a2332; border: 1px solid #2a364f;
+    border-radius: 16px; color: #fff; outline: none; font-size: 0.95rem;
+}
+
+.forgot-link {
+    display: block; color: var(--primary-accent); font-size: 0.85rem;
+    margin-top: 5px; margin-bottom: 20px; text-decoration: none; cursor: pointer; text-align: right;
+}
+
+.auth-submit-main-btn {
+    width: 100%; padding: 14px; background: var(--danger-color);
+    color: #fff; border: none; border-radius: 24px; font-weight: bold; font-size: 1rem; cursor: pointer;
+}
+
+.google-login-btn {
+    width: 100%; padding: 12px; background: #fff; color: #333;
+    border: none; border-radius: 24px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; margin-top: 10px;
+}
+
+.switch-auth-mode { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #aaa; }
+.switch-auth-mode span { color: #fff; cursor: pointer; font-weight: bold; text-decoration: underline; }
+
+.google-accounts-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10000; opacity: 0; pointer-events: none; transition: 0.3s;
+}
+
+.google-accounts-overlay.active { opacity: 1; pointer-events: all; }
+
+.google-accounts-card {
+    background: #1e2530; border: 1px solid var(--border-color);
+    border-radius: 16px; width: 90%; max-width: 400px; padding: 24px; color: #fff; text-align: left;
+}
+
+.google-modal-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.google-accounts-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+
+.google-account-item {
+    display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 10px; background: #141a23; cursor: pointer;
+}
+
+.g-avatar {
+    width: 36px; height: 36px; border-radius: 50%; background: #00f0ff; color: #000; font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.google-modal-footer { text-align: right; }
+.google-modal-footer span { color: var(--primary-accent); cursor: pointer; font-weight: bold; }
+
+.user-profile-avatar {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(0, 240, 255, 0.1); border: 1px solid var(--primary-accent);
+    padding: 6px 14px; border-radius: 20px; color: #fff; cursor: pointer; font-weight: bold;
+}
+
+.modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); z-index: 10000; display: flex; align-items: center; justify-content: center;
+}
+
+.modal-content {
+    background: var(--card-bg); border: 1px solid var(--border-color);
+    border-radius: 12px; padding: 25px; width: 90%; max-width: 600px; position: relative;
+}
+
+.close-modal { position: absolute; top: 15px; left: 15px; font-size: 24px; cursor: pointer; color: #aaa; }
+.modal-body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; }
+.modal-product-img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; }
+
+.cart-item-card {
+    display: flex; align-items: center; background: var(--card-bg);
+    border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; margin-bottom: 10px; gap: 15px;
+}
+
+.cart-item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+
+.toast {
+    position: fixed; bottom: 20px; right: 20px; background: var(--primary-accent); color: #000;
+    padding: 12px 24px; border-radius: 8px; font-weight: bold; z-index: 10001; transform: translateY(100px); opacity: 0; transition: 0.3s;
+}
+
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* تنسيق الهيدر العام للموبايل والشاشات الصغيرة */
+@media (max-width: 768px) {
+    header.main-header {
+        padding: 8px 10px !important;
+    }
+    
+    /* تصغير مسافات الأزرار عشان تكفي الموبايل */
+    .header-actions {
+        gap: 5px !important;
+    }
+
+    .header-actions button, 
+    .header-actions div {
+        padding: 4px 8px !important;
+        font-size: 0.75rem !important;
+    }
+
+    /* تصغير حجم خط اللوجو والشعار على الموبايل عشان ما يزنقوش */
+    .brand-logo {
+        font-size: 1.1rem !important;
+    }
+    
+    .brand-tagline {
+        font-size: 0.45rem !important;
+    }
+
+    .site-logo-img {
+        width: 32px !important;
+        height: 32px !important;
+    }
+}
+
+/* تنسيق الهيدر والناف بار للموبايل والشاشات الصغيرة */
+@media (max-width: 768px) {
+    header.main-header {
+        padding: 8px 10px !important;
+        flex-direction: row-reverse !important; /* يحافظ على ترتيب اليمين والشمال صح */
+        justify-content: space-between !important;
+    }
+    
+    /* تصغير مسافات الأزرار فوق بعضها أو جنب بعضها بشياكة */
+    .header-actions {
+        gap: 4px !important;
+    }
+
+    .header-actions button, 
+    .header-actions div {
+        padding: 4px 6px !important;
+        font-size: 0.7rem !important;
+    }
+
+    /* تصغير اللوجو والخطوط عشان تكفي مساحة الموبايل الضيقة */
+    .brand-logo {
+        font-size: 1.1rem !important;
+    }
+    
+    .brand-tagline {
+        font-size: 0.45rem !important;
+        display: none; /* لو حابب تخفي التاجلاين في الموبايل عشان مايزدحمش، أو سيبها لو تحب */
+    }
+
+    .site-logo-img {
+        width: 32px !important;
+        height: 32px !important;
+    }
+}
+
+/* تنسيق ظهور نافذة التقييمات */
+#feedback-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#feedback-modal .modal-card {
+    background: #121824;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+#feedback-modal {
+    display: none; /* عشان تظهر بس لما تدوس على الزرار */
+}
